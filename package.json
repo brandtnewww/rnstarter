@@ -7,7 +7,18 @@
 		"ios": "react-native run-ios",
 		"lint": "eslint .",
 		"start": "react-native start",
-		"test": "jest"
+		"test": "jest",
+		"clean": "yarn rn:clean && yarn ios:clean && yarn cache clean && yarn && yarn android:clean",
+		"rn:clean": "watchman watch-del-all && rm -rf node_modules && rm -rf ~/.rncache && rm -rf $TMPDIR/haste-map-react-native-packager-* && rm -rf $TMPDIR/react-native-packager-cache-* && rm -rf $TMPDIR/metro-bundler-cache-*",
+		"ios:clean": "yarn ios:clean-workspace && yarn ios:clean-data",
+		"ios:clean-workspace": "cd ios && xcodebuild clean -workspace rnstarter.xcworkspace -scheme rnstarter && cd ..",
+		"ios:clean-data": "rm -rf ~/Library/Developer/Xcode/DerivedData",
+		"android:clean": "yarn android:delete-iml && yarn android:delete-idea && yarn android:gradlew-clean",
+		"android:delete-iml": "cd android && find . -name \"*.iml\" -type f -delete && cd ..",
+		"android:delete-idea": "cd android && rm -rf .idea && cd ..",
+		"android:gradlew-clean": "cd android && ./gradlew clean && cd ..",
+		"cleanup:metrobundler": "rm -rf /tmp/metro-bundler-cache-*",
+		"cleanup:hastecache": "rm -rf /tmp/haste-map-react-native-packager-*"
 	},
 	"dependencies": {
 		"@react-navigation/native": "^6.1.4",
