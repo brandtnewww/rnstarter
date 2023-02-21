@@ -7,6 +7,18 @@ import { useEffect } from 'react'
 
 // A hook to track errors and events
 export default function useTracking() {
+	// Enable analytics and crashlytics
+	useEffect(() => {
+		if (__DEV__) {
+			console.log('Analytics disabled in dev mode')
+		} else {
+			// Enable analytics collection
+			// analytics().setAnalyticsCollectionEnabled(true)
+			// Enable crashlytics collection
+			// crashlytics().setCrashlyticsCollectionEnabled(true)
+		}
+	}, [])
+
 	// Track an error
 	const trackError = error => {
 		if (__DEV__) {
@@ -66,18 +78,4 @@ export default function useTracking() {
 	}
 
 	return { trackError, trackEvent, setUserId, setUserProperties }
-}
-
-// A hook to set up analytics
-export function useAnalytics() {
-	useEffect(() => {
-		if (__DEV__) {
-			console.log('Analytics disabled in dev mode')
-		} else {
-			// Enable analytics collection
-			// analytics().setAnalyticsCollectionEnabled(true)
-			// Enable crashlytics collection
-			// crashlytics().setCrashlyticsCollectionEnabled(true)
-		}
-	}, [])
 }
