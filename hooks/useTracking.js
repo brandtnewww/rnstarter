@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 
-// TODO: Uncomment the following lines to enable analytics and crashlytics
-
 // import analytics from '@react-native-firebase/analytics'
 // import crashlytics from '@react-native-firebase/crashlytics'
+
+// https://rnfirebase.io
+// TODO: Uncomment the following lines to enable analytics and crashlytics
 
 // A hook to track errors and events
 export default function useTracking() {
@@ -36,6 +37,21 @@ export default function useTracking() {
 			} else {
 				// crashlytics().log(name, params)
 				// analytics().logEvent(name, params)
+			}
+		} catch (error) {
+			trackError(error)
+		}
+	}
+
+	const trackScreen = async screenName => {
+		try {
+			if (__DEV__) {
+				console.log(screenName)
+			} else {
+				// await analytics().setCurrentScreen({
+				// 	screen_name: screenName,
+				// 	screen_class: screenName
+				// })
 			}
 		} catch (error) {
 			trackError(error)
@@ -77,5 +93,5 @@ export default function useTracking() {
 		}
 	}
 
-	return { trackError, trackEvent, setUserId, setUserProperties }
+	return { trackError, trackEvent, trackScreen, setUserId, setUserProperties }
 }
